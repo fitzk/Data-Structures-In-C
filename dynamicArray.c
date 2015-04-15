@@ -1,4 +1,7 @@
-/*	dynamicArray.c: Dynamic Array implementation. */
+/*	dynamicArray.c: Dynamic Array implementation. 
+	Contributors: worksheet Group 29
+
+*/
 #include <assert.h>
 #include <stdlib.h>
 #include "dynamicArray.h"
@@ -131,7 +134,6 @@ int sizeDynArr(DynArr *v)
 void addDynArr(DynArr *v, TYPE val)
 {
 	
-	
 	/* Check to see if a resize is necessary */
   	if(v->size >= v->capacity)
 		_dynArrSetCapacity(v, 2 * v->capacity);
@@ -139,19 +141,6 @@ void addDynArr(DynArr *v, TYPE val)
 	v->data[v->size] = val;
 	v->size++;	  
 	
-/*	if(v->size == v->capacity){
-		int newCap = v->capacity*2;
-		TYPE* b = (TYPE *) malloc(sizeof(TYPE) * newCap);
-		b[v->size] = val;
-		
-		for(int i = 0; i < (v->size); i++){
-			v->data[i] = b[i];
-		}
-		_dynArrSetCapacity(v, newCap); 
-	}else if(v->size != v->capacity){
-		
-	}
-*/
 }
 
 /*	Get an element from the dynamic array from a specified position
@@ -167,9 +156,6 @@ void addDynArr(DynArr *v, TYPE val)
 
 TYPE getDynArr(DynArr *v, int pos)
 {
-	/* FIXME: You will write this function */
-
-	/* FIXME: you must change this return value */
 	return v->data[pos]; 
 }
 
@@ -186,7 +172,7 @@ TYPE getDynArr(DynArr *v, int pos)
 */
 void putDynArr(DynArr *v, int pos, TYPE val)
 {
-	/* FIXME: You will write this function */
+	v->data[pos] = val;
 }
 
 /*	Swap two specified elements in the dynamic array
@@ -200,7 +186,12 @@ void putDynArr(DynArr *v, int pos, TYPE val)
 */
 void swapDynArr(DynArr *v, int i, int  j)
 {
-	/* FIXME: You will write this function */
+	if(v != NULL && v->size != 0){
+		TYPE temp;
+		temp = v->data[i];
+		v->data[i] = v->data[j];
+		v->data[j] = temp;
+	}
 }
 
 /*	Remove the element at the specified location from the array,

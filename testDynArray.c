@@ -17,7 +17,6 @@ void assertTrue(int predicate, char *message)
 		printf("FAILED\n");
 }
 
-
 // this main function contains some
 int main(int argc, char* argv[]){
 
@@ -47,10 +46,11 @@ int main(int argc, char* argv[]){
 	
 	printf("\n\nTesting swapDynArr...\nCalling swapDynArr(dyn, 2, 4)\n");
 	swapDynArr(dyn, 2, 4);
+	
 	printf("The array's content: [3,4,6,5,7]\n");
 	assertTrue(EQ(getDynArr(dyn, 2), 6), "Test 3rd element == 6");
 	assertTrue(EQ(getDynArr(dyn, 4), 7), "Test 5th element == 7");
-	
+
 	printf("\n\nTesting removeAtDynArr...\nCalling removeAtDynArr(dyn, 1)\n");
 	removeAtDynArr(dyn, 1);
 	printf("The array's content: [3,6,5,7]\n");

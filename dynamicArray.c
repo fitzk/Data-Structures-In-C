@@ -91,8 +91,20 @@ void deleteDynArr(DynArr *v)
 */
 void _dynArrSetCapacity(DynArr *v, int newCap)
 {	
-	v->capacity= newCap;/* FIXME: You will write this function */
-	
+	assert(newCap >= (v->size));
+    struct DynArr *b; 
+	b = malloc(sizeof(struct DynArr)); // Create a new DynArr with the larger capacity
+	assert(b != 0);
+	initDynArr(b, newCap);
+
+   for(int n = 0; n < (v->size); n++)
+	  addDynArr(b, v->data[n]); // Put each of v’s elements into b
+
+  freeDynArr(v);
+
+  /* Set the DynArr pointed to by v to be equal to the new DynArr */
+  *v = *b;
+
 }
 
 /* Get the size of the dynamic array
@@ -118,8 +130,16 @@ int sizeDynArr(DynArr *v)
 */
 void addDynArr(DynArr *v, TYPE val)
 {
-	v->size++;
-	if(v->size == v->capacity){
+	
+	
+	/* Check to see if a resize is necessary */
+  	if(v->size >= v->capacity)
+		_dynArrSetCapacity(v, 2 * v->capacity);
+	
+	v->data[v->size] = val;
+	v->size++;	  
+	
+/*	if(v->size == v->capacity){
 		int newCap = v->capacity*2;
 		TYPE* b = (TYPE *) malloc(sizeof(TYPE) * newCap);
 		b[v->size] = val;
@@ -127,11 +147,11 @@ void addDynArr(DynArr *v, TYPE val)
 		for(int i = 0; i < (v->size); i++){
 			v->data[i] = b[i];
 		}
-		_dynArrSetCapacity(v, newCap)
-	}else{
-		v->data[size] = val;
+		_dynArrSetCapacity(v, newCap); 
+	}else if(v->size != v->capacity){
+		
 	}
-
+*/
 }
 
 /*	Get an element from the dynamic array from a specified position
@@ -150,7 +170,7 @@ TYPE getDynArr(DynArr *v, int pos)
 	/* FIXME: You will write this function */
 
 	/* FIXME: you must change this return value */
-	return 1; 
+	return v->data[pos]; 
 }
 
 /*	Put an item into the dynamic array at the specified location,
@@ -199,7 +219,7 @@ void removeAtDynArr(DynArr *v, int idx)
         assert(idx >= 0 && idx < (v->size));
 
        
-        for(int n = index; n < (v->size - 1); n++)
+        for(int n = idx; n < (v->size - 1); n++)
            v->data[n] = v->data[n+1];   
 
         v->size--;
@@ -307,9 +327,9 @@ int containsDynArr(DynArr *v, TYPE val)
 void removeDynArr(DynArr *v, TYPE val)
 {
 	 int i;
-   for (i = 0; i < dy->size; i++) {
-      if (EQ(test, dy->data[i])) { /* found it */
-         _dynArrayRemoveAt(dy, i);
+   for (i = 0; i < v->size; i++) {
+      if (EQ(val, v->data[i])) { 
+         removeAtDynArr(v, i);
          return;
       }
    }

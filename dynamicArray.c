@@ -91,7 +91,7 @@ void deleteDynArr(DynArr *v)
 */
 void _dynArrSetCapacity(DynArr *v, int newCap)
 {	
-	/* FIXME: You will write this function */
+	v->capacity= newCap;/* FIXME: You will write this function */
 	
 }
 
@@ -118,7 +118,19 @@ int sizeDynArr(DynArr *v)
 */
 void addDynArr(DynArr *v, TYPE val)
 {
-	/* FIXME: You will write this function */
+	v->size++;
+	if(v->size == v->capacity){
+		int newCap = v->capacity*2;
+		TYPE* b = (TYPE *) malloc(sizeof(TYPE) * newCap);
+		b[v->size] = val;
+		
+		for(int i = 0; i < (v->size); i++){
+			v->data[i] = b[i];
+		}
+		_dynArrSetCapacity(v, newCap)
+	}else{
+		v->data[size] = val;
+	}
 
 }
 

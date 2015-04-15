@@ -196,7 +196,14 @@ void swapDynArr(DynArr *v, int i, int  j)
 */
 void removeAtDynArr(DynArr *v, int idx)
 {
-	/* FIXME: You will write this function */
+        assert(idx >= 0 && idx < (v->size));
+
+       
+        for(int n = index; n < (v->size - 1); n++)
+           v->data[n] = v->data[n+1];   
+
+        v->size--;
+
 }
 
 
@@ -299,5 +306,12 @@ int containsDynArr(DynArr *v, TYPE val)
 */
 void removeDynArr(DynArr *v, TYPE val)
 {
-	/* FIXME: You will write this function */
+	 int i;
+   for (i = 0; i < dy->size; i++) {
+      if (EQ(test, dy->data[i])) { /* found it */
+         _dynArrayRemoveAt(dy, i);
+         return;
+      }
+   }
+
 }

@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "dynamicArray.h"
+#include "calc.h"
+
 
 
 /* param: s the string
@@ -40,11 +41,11 @@ int isNumber(char *s, double *num)
 */
 void add (struct DynArr *stack)
 {
-	if(stack->size > 1){
+	if(sizeDynArr(stack) > 1){
 		
 		TYPE firstOff = topDynArr(stack);
 		popDynArr(stack);
-		TYPE secondOff = popDynArr(stack);
+		TYPE secondOff = topDynArr(stack);
 		popDynArr(stack);
 		TYPE putBack = firstOff + secondOff;
 		pushDynArr(stack, putBack);
@@ -59,7 +60,16 @@ void add (struct DynArr *stack)
 */
 void subtract(struct DynArr *stack)
 {
-	/* FIXME: You will write this function */
+	if(sizeDynArr(stack) > 1){
+		
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE secondOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE putBack = secondOff-firstOff;
+		pushDynArr(stack, putBack);
+	}
+	
 }
 
 /*	param: stack the stack being manipulated
@@ -69,7 +79,16 @@ void subtract(struct DynArr *stack)
 */
 void divide(struct DynArr *stack)
 {
-	/* FIXME: You will write this function */
+	if(sizeDynArr(stack) > 1){	
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE secondOff = topDynArr(stack);
+		popDynArr(stack);
+		printf("%f/%f =", secondOff, firstOff);
+		TYPE putBack = secondOff/firstOff;
+		printf("%f",putBack);
+		pushDynArr(stack, putBack);
+	}
 }
 
 double calculate(int numInputTokens, char **inputString)
@@ -143,7 +162,7 @@ double calculate(int numInputTokens, char **inputString)
 	return result;
 }
 
-int main(int argc , char** argv)
+/* int main(int argc , char** argv)
 {
 	// assume each argument is contained in the argv array
 	// argc-1 determines the number of operands + operators
@@ -152,4 +171,4 @@ int main(int argc , char** argv)
 
 	calculate(argc,argv);
 	return 0;
-}
+} */

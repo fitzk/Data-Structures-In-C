@@ -40,7 +40,16 @@ int isNumber(char *s, double *num)
 */
 void add (struct DynArr *stack)
 {
-	/* FIXME: You will write this function */
+	if(stack->size > 1){
+		
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE secondOff = popDynArr(stack);
+		popDynArr(stack);
+		TYPE putBack = firstOff + secondOff;
+		pushDynArr(stack, putBack);
+		
+	}
 }
 
 /*	param: stack the stack being manipulated

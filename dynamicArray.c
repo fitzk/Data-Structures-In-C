@@ -132,13 +132,13 @@ int sizeDynArr(DynArr *v)
 void addDynArr(DynArr *v, TYPE val)
 {
 	
-	/* Check to see if a resize is necessary */
-  	if(v->size >= v->capacity)
+	//check for resize
+  	if(v->size >= v->capacity){
 		_dynArrSetCapacity(v, 2 * v->capacity);
+	}
 	
 	v->data[v->size] = val;
 	v->size++;	  
-	
 }
 
 /*	Get an element from the dynamic array from a specified position

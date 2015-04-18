@@ -144,13 +144,11 @@ void powerOf(struct DynArr *stack)
 
 void squaring(struct DynArr *stack)
 {
-	if(sizeDynArr(stack) > 1){	
+	if(sizeDynArr(stack) > 0){	
 		TYPE firstOff = topDynArr(stack);
 		popDynArr(stack);
-		TYPE secondOff = topDynArr(stack);
-		popDynArr(stack);
-		printf("%f^%f = ", secondOff, firstOff);
-		TYPE putBack = pow(secondOff,firstOff);
+		printf("%f^2 = ", firstOff);
+		TYPE putBack = pow(firstOff,2);
 		printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
 		printf("%d", sizeDynArr(stack));
@@ -159,13 +157,11 @@ void squaring(struct DynArr *stack)
 
 void cubing(struct DynArr *stack)
 {
-	if(sizeDynArr(stack) > 1){	
+	if(sizeDynArr(stack) > 0){	
 		TYPE firstOff = topDynArr(stack);
 		popDynArr(stack);
-		TYPE secondOff = topDynArr(stack);
-		popDynArr(stack);
-		printf("%f^%f = ", secondOff, firstOff);
-		TYPE putBack = pow(secondOff,firstOff);
+		printf("%f^2 = ", firstOff);
+		TYPE putBack = pow(firstOff,3);
 		printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
 		printf("%d", sizeDynArr(stack));
@@ -174,13 +170,11 @@ void cubing(struct DynArr *stack)
 
 void absoluteVal(struct DynArr *stack)
 {
-	if(sizeDynArr(stack) > 1){	
+	if(sizeDynArr(stack) > 0){	
 		TYPE firstOff = topDynArr(stack);
 		popDynArr(stack);
-		TYPE secondOff = topDynArr(stack);
-		popDynArr(stack);
-		printf("%f^%f = ", secondOff, firstOff);
-		TYPE putBack = pow(secondOff,firstOff);
+		printf("%f^2 = ", firstOff);
+		TYPE putBack = fabs(firstOff);
 		printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
 		printf("%d", sizeDynArr(stack));
@@ -250,7 +244,7 @@ double calculate(int numInputTokens, char **inputString)
 	for(i=1;i < numInputTokens;i++) 
 	{
 		s = inputString[i];
-
+		printf("%s ", s);
 		// Hint: General algorithm:
 		// (1) Check if the string s is in the list of operators.
 		//   (1a) If it is, perform corresponding operations.
@@ -258,8 +252,9 @@ double calculate(int numInputTokens, char **inputString)
 		//     (1b - I) If s is not a number, produce an error.
 		//     (1b - II) If s is a number, push it onto the stack
 
-		if(strcmp(s, "+") == 0)
+ 		if(strcmp(s, "+") == 0){
 			add(stack);
+		}
 		else if(strcmp(s,"-") == 0)
 			subtract(stack);
 		else if(strcmp(s, "/") == 0)
@@ -282,15 +277,16 @@ double calculate(int numInputTokens, char **inputString)
 			naturalLog(stack);
 		else if(strcmp(s, "log") == 0)
 			commonLog(stack);
-		else 
-		{
-			double * resultNum = 0;
-			if(isNumber(s, resultNum) != 1){
-				printf("Error");	
+		else {
+			double resultNum = 0;
+			
+ 			if(isNumber(s, &resultNum) == 0){
+				printf("Error");
+				printf("\nCharacter: %s \n", s);
 			}else{
-				pushDynArr(stack, *resultNum);
-			}
-		}
+				pushDynArr(stack, resultNum);
+			} 
+		} 
 	}	//end for 
 
 	result = topDynArr(stack);
@@ -303,8 +299,8 @@ double calculate(int numInputTokens, char **inputString)
 	// argc-1 determines the number of operands + operators
 	if (argc == 1)
 		return 0;
-
+	//printf("Got here main");
 	double result = calculate(argc,argv);
-	printf("%f ", result);
+	printf("\nResult: %f ", result);
 	return 0;
 } 

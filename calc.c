@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include "calc.h"
+#include "dynamicArray.h"
 
 
 
@@ -157,6 +157,35 @@ void squaring(struct DynArr *stack)
 	}
 }
 
+void cubing(struct DynArr *stack)
+{
+	if(sizeDynArr(stack) > 1){	
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE secondOff = topDynArr(stack);
+		popDynArr(stack);
+		printf("%f^%f = ", secondOff, firstOff);
+		TYPE putBack = pow(secondOff,firstOff);
+		printf("%f \n",putBack);
+		pushDynArr(stack, putBack);
+		printf("%d", sizeDynArr(stack));
+	}
+}
+
+void absoluteVal(struct DynArr *stack)
+{
+	if(sizeDynArr(stack) > 1){	
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE secondOff = topDynArr(stack);
+		popDynArr(stack);
+		printf("%f^%f = ", secondOff, firstOff);
+		TYPE putBack = pow(secondOff,firstOff);
+		printf("%f \n",putBack);
+		pushDynArr(stack, putBack);
+		printf("%d", sizeDynArr(stack));
+	}
+}
 // stack greater than 0
 void squareRoot(struct DynArr *stack)
 {
@@ -242,10 +271,9 @@ double calculate(int numInputTokens, char **inputString)
 		else if(strcmp(s, "^2") == 0)
 			squaring(stack);
 		else if(strcmp(s, "^3") == 0)
-			//cubing(stack);
+			cubing(stack);
 		else if(strcmp(s, "abs") == 0)
-			//absoluteVal(stack);
-			printf("Absolute value\n");
+			absoluteVal(stack);
 		else if(strcmp(s, "sqrt") == 0)
 			squareRoot(stack);
 		else if(strcmp(s, "exp") == 0)
@@ -256,27 +284,27 @@ double calculate(int numInputTokens, char **inputString)
 			commonLog(stack);
 		else 
 		{
-			// FIXME: You need to develop the code here (when s is not an operator)
-			// Remember to deal with special values ("pi" and "e")
-			
+			double * resultNum = 0;
+			if(isNumber(s, resultNum) != 1){
+				printf("Error");	
+			}else{
+				pushDynArr(stack, *resultNum);
+			}
 		}
 	}	//end for 
 
-	/* FIXME: You will write this part of the function (2 steps below) 
-	 * (1) Check if everything looks OK and produce an error if needed.
-	 * (2) Store the final value in result and print it out.
-	 */
-	
+	result = topDynArr(stack);
 	return result;
 }
 
-/* int main(int argc , char** argv)
+ int main(int argc , char** argv)
 {
 	// assume each argument is contained in the argv array
 	// argc-1 determines the number of operands + operators
 	if (argc == 1)
 		return 0;
 
-	calculate(argc,argv);
+	double result = calculate(argc,argv);
+	printf("%f ", result);
 	return 0;
-} */
+} 

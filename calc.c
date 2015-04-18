@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "calc.h"
 
 
@@ -24,7 +25,7 @@ int isNumber(char *s, double *num)
 	else 
 	{
 		returnNum = strtod(s, &end);
-		/* If there's anythin in end, it's bad */
+		/* If there's anything in end, it's bad */
 		if((returnNum != 0.0) && (strcmp(end, "") == 0))
 		{
 			*num = returnNum;
@@ -84,10 +85,125 @@ void divide(struct DynArr *stack)
 		popDynArr(stack);
 		TYPE secondOff = topDynArr(stack);
 		popDynArr(stack);
-		printf("%f/%f =", secondOff, firstOff);
+		printf("%f/%f = ", secondOff, firstOff);
 		TYPE putBack = secondOff/firstOff;
-		printf("%f",putBack);
+		printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
+		printf("%d", sizeDynArr(stack));
+	}
+}
+/*
+ * Name         : multiply
+ *
+ * Arguments    : stack the stack being manipulated
+ *
+ * Description  : 	
+ *	pre: the stack contains at least two elements
+ *	post: the top two elements are popped and 
+ *	the result of the multiplication is pushed back onto the stack. 
+ */
+
+void multiply(struct DynArr *stack)
+{
+	if(sizeDynArr(stack) > 1){	
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE secondOff = topDynArr(stack);
+		popDynArr(stack);
+		printf("%f*%f = ", secondOff, firstOff);
+		TYPE putBack = secondOff*firstOff;
+		printf("%f \n",putBack);
+		printf("%d", sizeDynArr(stack));
+	}
+}
+/*
+ * Name         : powerOf
+ *
+ * Arguments    : stack the stack being manipulated
+ *
+ * Description  : 	
+ *	pre: the stack contains at least two elements
+ *	post: the top two elements are popped and 
+ *	the result of the first to the power of the 
+ *  second is pushed back onto the stack. 
+ */
+void powerOf(struct DynArr *stack)
+{
+	if(sizeDynArr(stack) > 1){	
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE secondOff = topDynArr(stack);
+		popDynArr(stack);
+		printf("%f^%f = ", secondOff, firstOff);
+		TYPE putBack = pow(secondOff,firstOff);
+		printf("%f \n",putBack);
+		pushDynArr(stack, putBack);
+		printf("%d", sizeDynArr(stack));
+	}
+}
+
+void squaring(struct DynArr *stack)
+{
+	if(sizeDynArr(stack) > 1){	
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE secondOff = topDynArr(stack);
+		popDynArr(stack);
+		printf("%f^%f = ", secondOff, firstOff);
+		TYPE putBack = pow(secondOff,firstOff);
+		printf("%f \n",putBack);
+		pushDynArr(stack, putBack);
+		printf("%d", sizeDynArr(stack));
+	}
+}
+
+// stack greater than 0
+void squareRoot(struct DynArr *stack)
+{
+	if(sizeDynArr(stack) > 0){	
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE putBack = sqrt(firstOff);
+		printf("%f \n",putBack);
+		pushDynArr(stack, putBack);
+		printf("%d", sizeDynArr(stack));
+	}
+}
+
+// stack greater than 0
+void expontential(struct DynArr *stack)
+{
+	if(sizeDynArr(stack) > 0){	
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE putBack = exp(firstOff);
+		printf("%f \n",putBack);
+		pushDynArr(stack, putBack);
+		printf("%d", sizeDynArr(stack));
+	}
+}
+// stack greater than 0
+void naturalLog(struct DynArr *stack)
+{
+	if(sizeDynArr(stack) > 0){	
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE putBack = log(firstOff);
+		printf("%f \n",putBack);
+		pushDynArr(stack, putBack);
+		printf("%d", sizeDynArr(stack));
+	}
+}
+// stack greater than 0
+void commonLog(struct DynArr *stack)
+{
+	if(sizeDynArr(stack) > 0){	
+		TYPE firstOff = topDynArr(stack);
+		popDynArr(stack);
+		TYPE putBack = log10(firstOff);
+		printf("%f \n",putBack);
+		pushDynArr(stack, putBack);
+		printf("%d", sizeDynArr(stack));
 	}
 }
 
@@ -120,32 +236,24 @@ double calculate(int numInputTokens, char **inputString)
 		else if(strcmp(s, "/") == 0)
 			divide(stack);
 		else if(strcmp(s, "x") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Multiplying\n");
+			multiply(stack);
 		else if(strcmp(s, "^") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Power\n");
+			powerOf(stack);
 		else if(strcmp(s, "^2") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Squaring\n");
+			squaring(stack);
 		else if(strcmp(s, "^3") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Cubing\n");
+			//cubing(stack);
 		else if(strcmp(s, "abs") == 0)
-			/* FIXME: replace printf with your own function */
+			//absoluteVal(stack);
 			printf("Absolute value\n");
 		else if(strcmp(s, "sqrt") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Square root\n");
+			squareRoot(stack);
 		else if(strcmp(s, "exp") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Exponential\n");
+			expontential(stack);
 		else if(strcmp(s, "ln") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Natural Log\n");
+			naturalLog(stack);
 		else if(strcmp(s, "log") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Log\n");
+			commonLog(stack);
 		else 
 		{
 			// FIXME: You need to develop the code here (when s is not an operator)

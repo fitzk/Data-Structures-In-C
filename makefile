@@ -7,7 +7,7 @@ testda: dynamicArray.o testDynArray.o
 	gcc -g -Wall -std=c99 -o testda dynamicArray.o testDynArray.o
 
 testcalc: dynamicArray.o calc.o testCalc.o
-	gcc -g -Wall -std=c99 -o testcalc dynamicArray.o calc.o testcalc.o
+	gcc -g -Wall -std=c99 -o testcalc dynamicArray.o calc.o testcalc.o -lm
 
 calc.o: calc.c dynamicArray.h calc.h
 	gcc -g -Wall -std=c99 -c calc.c

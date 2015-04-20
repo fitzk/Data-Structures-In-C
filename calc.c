@@ -85,11 +85,10 @@ void divide(struct DynArr *stack)
 		popDynArr(stack);
 		TYPE secondOff = topDynArr(stack);
 		popDynArr(stack);
-		printf("%f/%f = ", secondOff, firstOff);
+	//	printf("%f/%f = ", secondOff, firstOff);
 		TYPE putBack = secondOff/firstOff;
-		printf("%f \n",putBack);
+	//	printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
-		printf("%d", sizeDynArr(stack));
 	}
 }
 /*
@@ -110,10 +109,10 @@ void multiply(struct DynArr *stack)
 		popDynArr(stack);
 		TYPE secondOff = topDynArr(stack);
 		popDynArr(stack);
-		printf("%f*%f = ", secondOff, firstOff);
+	//	printf("%f*%f = ", secondOff, firstOff);
 		TYPE putBack = secondOff*firstOff;
-		printf("%f \n",putBack);
-		printf("%d", sizeDynArr(stack));
+	//	printf("%f \n",putBack);
+		pushDynArr(stack, putBack);
 	}
 }
 /*
@@ -134,99 +133,169 @@ void powerOf(struct DynArr *stack)
 		popDynArr(stack);
 		TYPE secondOff = topDynArr(stack);
 		popDynArr(stack);
-		printf("%f^%f = ", secondOff, firstOff);
+	//	printf("%f^%f = ", secondOff, firstOff);
 		TYPE putBack = pow(secondOff,firstOff);
-		printf("%f \n",putBack);
+	//	printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
-		printf("%d", sizeDynArr(stack));
+	//	printf("%d", sizeDynArr(stack));
 	}
 }
-
+/*
+ * Name         : squaring
+ *
+ * Arguments    : stack the stack being manipulated
+ *
+ * Description  : 	
+ * pre: the stack contains at least one element
+ * post: the top element is popped and 
+ * the result of the first to the power of 2
+ * is pushed back onto the stack. 
+ */
 void squaring(struct DynArr *stack)
 {
 	if(sizeDynArr(stack) > 0){	
 		TYPE firstOff = topDynArr(stack);
 		popDynArr(stack);
-		printf("%f^2 = ", firstOff);
+	//	printf("%f^2 = ", firstOff);
 		TYPE putBack = pow(firstOff,2);
-		printf("%f \n",putBack);
+	//	printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
-		printf("%d", sizeDynArr(stack));
+	//	printf("%d", sizeDynArr(stack));
 	}
 }
-
+/*
+ * Name         : cubing
+ *
+ * Arguments    : stack the stack being manipulated
+ *
+ * Description  : 	
+ * pre: the stack contains at least one element
+ * post: the top element is popped and 
+ * the result of the first to the power of 3
+ * is pushed back onto the stack. 
+ */
 void cubing(struct DynArr *stack)
 {
 	if(sizeDynArr(stack) > 0){	
 		TYPE firstOff = topDynArr(stack);
 		popDynArr(stack);
-		printf("%f^2 = ", firstOff);
+	//	printf("%f^2 = ", firstOff);
 		TYPE putBack = pow(firstOff,3);
-		printf("%f \n",putBack);
+	//	printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
-		printf("%d", sizeDynArr(stack));
+	//	printf("%d", sizeDynArr(stack));
 	}
 }
-
+/*
+ * Name         : absoluteVal
+ *
+ * Arguments    : stack the stack being manipulated
+ *
+ * Description  : 	
+ * pre: the stack contains at least one element
+ * post: the top element is popped and 
+ * the absolute value of the element
+ * is pushed back onto the stack. 
+ */
 void absoluteVal(struct DynArr *stack)
 {
 	if(sizeDynArr(stack) > 0){	
 		TYPE firstOff = topDynArr(stack);
 		popDynArr(stack);
-		printf("%f^2 = ", firstOff);
+	//	printf("%f^2 = ", firstOff);
 		TYPE putBack = fabs(firstOff);
-		printf("%f \n",putBack);
+	//	printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
-		printf("%d", sizeDynArr(stack));
+	//	printf("%d", sizeDynArr(stack));
 	}
 }
-// stack greater than 0
+/*
+ * Name         : squareRoot
+ *
+ * Arguments    : stack the stack being manipulated
+ *
+ * Description  : 	
+ * pre: the stack contains at least one element
+ * post: the top element is popped and 
+ * the square root of the element
+ * is pushed back onto the stack. 
+ */
 void squareRoot(struct DynArr *stack)
 {
 	if(sizeDynArr(stack) > 0){	
 		TYPE firstOff = topDynArr(stack);
 		popDynArr(stack);
 		TYPE putBack = sqrt(firstOff);
-		printf("%f \n",putBack);
+	//	printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
-		printf("%d", sizeDynArr(stack));
+	//	printf("%d", sizeDynArr(stack));
 	}
 }
 
-// stack greater than 0
-void expontential(struct DynArr *stack)
+/*
+ * Name         : exponential
+ *
+ * Arguments    : stack the stack being manipulated
+ *
+ * Description  : 	
+ * pre: the stack contains at least one element
+ * post: the top element is popped and 
+ * the exponential value of the element
+ * is pushed back onto the stack. 
+ */
+void exponential(struct DynArr *stack)
 {
 	if(sizeDynArr(stack) > 0){	
 		TYPE firstOff = topDynArr(stack);
 		popDynArr(stack);
 		TYPE putBack = exp(firstOff);
-		printf("%f \n",putBack);
+	//	printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
-		printf("%d", sizeDynArr(stack));
+	//	printf("%d", sizeDynArr(stack));
 	}
 }
-// stack greater than 0
+/*
+ * Name         : naturalLog
+ *
+ * Arguments    : stack the stack being manipulated
+ *
+ * Description  : 	
+ * pre: the stack contains at least one element
+ * post: the top element is popped and 
+ * the natural log of the element
+ * is pushed back onto the stack. 
+ */
 void naturalLog(struct DynArr *stack)
 {
 	if(sizeDynArr(stack) > 0){	
 		TYPE firstOff = topDynArr(stack);
 		popDynArr(stack);
 		TYPE putBack = log(firstOff);
-		printf("%f \n",putBack);
+	//	printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
-		printf("%d", sizeDynArr(stack));
+	//	printf("%d", sizeDynArr(stack));
 	}
 }
-// stack greater than 0
+/*
+ * Name         : commonLog
+ *
+ * Arguments    : stack the stack being manipulated
+ *
+ * Description  : 	
+ * pre: the stack contains at least one element
+ * post: the top element is popped and 
+ * the common log of the element
+ * is pushed back onto the stack. 
+ */
 void commonLog(struct DynArr *stack)
 {
 	if(sizeDynArr(stack) > 0){	
 		TYPE firstOff = topDynArr(stack);
 		popDynArr(stack);
 		TYPE putBack = log10(firstOff);
-		printf("%f \n",putBack);
+	//	printf("%f \n",putBack);
 		pushDynArr(stack, putBack);
-		printf("%d", sizeDynArr(stack));
+	//	printf("%d", sizeDynArr(stack));
 	}
 }
 
@@ -272,22 +341,30 @@ double calculate(int numInputTokens, char **inputString)
 		else if(strcmp(s, "sqrt") == 0)
 			squareRoot(stack);
 		else if(strcmp(s, "exp") == 0)
-			expontential(stack);
+			exponential(stack);
 		else if(strcmp(s, "ln") == 0)
 			naturalLog(stack);
 		else if(strcmp(s, "log") == 0)
 			commonLog(stack);
 		else {
 			double resultNum = 0;
-			
- 			if(isNumber(s, &resultNum) == 0){
-				printf("Error");
-				printf("\nCharacter: %s \n", s);
+			if(strcmp(s, "pi") == 0)
+			{
+				pushDynArr(stack, 3.14159);
+				
+			}else if(strcmp(s, "e") == 0){
+				
+				pushDynArr(stack, 2.718281);
+				
+			}else if(isNumber(s, &resultNum) == 0){
+				printf("\nError Resulted from ");
+				printf("Character: %s \n Result may not be accurate!", s);
 			}else{
 				pushDynArr(stack, resultNum);
 			} 
 		} 
 	}	//end for 
+
 
 	result = topDynArr(stack);
 	return result;
@@ -299,7 +376,7 @@ double calculate(int numInputTokens, char **inputString)
 	// argc-1 determines the number of operands + operators
 	if (argc == 1)
 		return 0;
-	//printf("Got here main");
+	
 	double result = calculate(argc,argv);
 	printf("\nResult: %f ", result);
 	return 0;

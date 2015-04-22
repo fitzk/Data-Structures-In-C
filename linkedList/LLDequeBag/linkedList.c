@@ -27,7 +27,9 @@ struct linkedList{
 */
 
 void _initList (struct linkedList *lst) {
-  /* FIXME: you must write this */
+  if(lst != NULL){
+		lst->size = 0;
+	}
 }
 
 /*
@@ -58,8 +60,13 @@ struct linkedList *createLinkedList()
 
 void _addLinkBefore(struct linkedList *lst, struct DLink *l, TYPE v)
 {
-	/* FIXME: you must write this */
-
+	if(lst != NULL && l != NULL){
+		struct DLink *newL = malloc(sizeof(struct DLink));
+		newL->value = v;
+		l->prev = newL;
+		newL->next = l;
+		lst->size++;
+	}
 }
 
 
@@ -73,9 +80,9 @@ void _addLinkBefore(struct linkedList *lst, struct DLink *l, TYPE v)
 
 void addFrontList(struct linkedList *lst, TYPE e)
 {
-
-	/* FIXME: you must write this */
-	
+	if(lst != NULL){
+		_addLinkBefore(lst, lst->firstLink, e);
+	}
 }
 
 /*
@@ -87,8 +94,9 @@ void addFrontList(struct linkedList *lst, TYPE e)
 */
 
 void addBackList(struct linkedList *lst, TYPE e) {
-  
-	/* FIXME: you must write this */
+	if(lst != NULL){
+		_addLinkBefore(lst, lst->lastLink, e);
+	}
 }
 
 /*
@@ -100,9 +108,8 @@ void addBackList(struct linkedList *lst, TYPE e) {
 */
 
 TYPE frontList (struct linkedList *lst) {
-	/* FIXME: you must write this */
-	/*temporary return value...you may need to change this */
-	return(1);
+
+	return lst->firstLink->value;
 }
 
 /*
@@ -115,9 +122,7 @@ TYPE frontList (struct linkedList *lst) {
 
 TYPE backList(struct linkedList *lst)
 {
-	/* FIXME: you must write this */
-	/*temporary return value...you may need to change this */
-	return(1);
+	return lst->lastLink->value;
 }
 
 /*
@@ -131,22 +136,24 @@ TYPE backList(struct linkedList *lst)
 
 void _removeLink(struct linkedList *lst, struct DLink *l)
 {
-
-	/* FIXME: you must write this */
-	
+	l->next->prev = l->prev;
+	l->prev->next = l->next;
+	lst->size--;
+	free(l);
 }
 
 /*
 	removeFrontList
 	param: lst the linkedList
+
 	pre:lst is not null
 	pre: lst is not empty
 	post: size is reduced by 1
 */
 
 void removeFrontList(struct linkedList *lst) {
-   	/* FIXME: you must write this */
-
+	assert(! isEmptyList(lst));
+   _removeLink (lst, lst->firstLink->next);
 }
 
 /*
@@ -158,9 +165,9 @@ void removeFrontList(struct linkedList *lst) {
 */
 
 void removeBackList(struct linkedList *lst)
-{	
-	/* FIXME: you must write this */
-	
+{
+	assert(! isEmptyList(lst));
+	_removeLink (lst, lst->lastLink->prev);
 }
 
 /*
@@ -171,9 +178,7 @@ void removeBackList(struct linkedList *lst)
 */
 
 int isEmptyList(struct linkedList *lst) {
- 	/* FIXME: you must write this */
-	/*temporary return value...you may need to change this */
-	return(1);
+	return lst->size == 0;
 }
 
 
@@ -186,7 +191,7 @@ void _printList(struct linkedList* lst)
 
 }
 
-/* 
+/*
 	Add an item to the bag
 	param: 	lst		pointer to the bag
 	param: 	v		value to be added

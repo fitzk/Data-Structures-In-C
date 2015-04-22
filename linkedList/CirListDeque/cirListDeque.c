@@ -41,7 +41,7 @@ void _removeLink(struct cirListDeque *q, struct DLink *lnk);
 */
 void _initCirListDeque (struct cirListDeque *q)
 {
-		if(assert(q != NULL)){
+		if(q != NULL){
   	q->Sentinel = _createLink(0);
 		q->size = 0;
 	}
@@ -54,7 +54,7 @@ void _initCirListDeque (struct cirListDeque *q)
 
 struct cirListDeque *createCirListDeque()
 {
-	struct cirListDeque *newCL = malloc(sizeof(struct cirListDeque));
+	struct cirListDeque *newCL =(struct cirListDeque *) malloc(sizeof(struct cirListDeque));
 	_initCirListDeque(newCL);
 	return(newCL);
 }
@@ -68,7 +68,7 @@ struct cirListDeque *createCirListDeque()
 */
 struct DLink * _createLink (TYPE val)
 {
-	struct DLink *newL = malloc(sizeof(struct DLink));
+	struct DLink *newL =(struct DLink *)malloc(sizeof(struct DLink));
 	newL->value = val;
 	return newL;
 
@@ -86,8 +86,13 @@ struct DLink * _createLink (TYPE val)
 */
 void _addLinkAfter(struct cirListDeque *q, struct DLink *lnk, TYPE v)
 {
-	/* FIXME: you must write this */
+	if(q != NULL && lnk != NULL){
 
+			struct DLink *newL = _createLink(v);
+			lnk->next = newL;
+			newL->prev = lnk;
+			q->size++;
+		}
 }
 
 /* Adds a link to the back of the deque
@@ -99,7 +104,11 @@ void _addLinkAfter(struct cirListDeque *q, struct DLink *lnk, TYPE v)
 */
 void addBackCirListDeque (struct cirListDeque *q, TYPE val)
 {
-	/* FIXME: you must write this */
+	if(q != NULL){
+		struct DLink *newL = _createLink(val);
+		q->Sentinel->prev->next = newL;
+		q->Sentinel->prev = newL;
+	}
 
 }
 

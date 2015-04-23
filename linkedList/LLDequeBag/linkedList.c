@@ -27,9 +27,17 @@ struct linkedList{
 */
 
 void _initList (struct linkedList *lst) {
-  if(lst != NULL){
-		lst->size = 0;
-	}
+  assert(lst != NULL);
+	lst->firstLink = malloc(sizeof(struct DLink));
+	assert(lst->firstLink != 0);
+	lst->lastLink = malloc(sizeof(struct DLink));
+	assert(lst->lastLink);
+	lst->firstLink->next = lst->lastLink;
+	lst->firstLink->prev = lst->lastLink;
+	lst->lastLink->prev = lst->firstLink;
+	lst->lastLink->next = lst->firstLink;
+	lst->size = 0;
+
 }
 
 /*
@@ -39,11 +47,14 @@ void _initList (struct linkedList *lst) {
  post: firstLink and lastLink reference sentinels
  */
 
-struct linkedList *createLinkedList()
-{
+struct linkedList *createLinkedList() {
+
 	struct linkedList *newList = malloc(sizeof(struct linkedList));
 	_initList(newList);
+//	newList->size = 0;
+
 	return(newList);
+
 }
 
 /*
@@ -60,13 +71,14 @@ struct linkedList *createLinkedList()
 
 void _addLinkBefore(struct linkedList *lst, struct DLink *l, TYPE v)
 {
-	if(lst != NULL && l != NULL){
+		assert(lst != NULL);
+		assert(l != NULL);
 		struct DLink *newL = malloc(sizeof(struct DLink));
 		newL->value = v;
+		l->prev->next = newL;
 		l->prev = newL;
 		newL->next = l;
 		lst->size++;
-	}
 }
 
 
@@ -80,9 +92,8 @@ void _addLinkBefore(struct linkedList *lst, struct DLink *l, TYPE v)
 
 void addFrontList(struct linkedList *lst, TYPE e)
 {
-	if(lst != NULL){
-		_addLinkBefore(lst, lst->firstLink, e);
-	}
+	assert(lst != NULL);
+	_addLinkBefore(lst, lst->firstLink, e);
 }
 
 /*
@@ -94,9 +105,8 @@ void addFrontList(struct linkedList *lst, TYPE e)
 */
 
 void addBackList(struct linkedList *lst, TYPE e) {
-	if(lst != NULL){
-		_addLinkBefore(lst, lst->lastLink, e);
-	}
+	assert(lst != NULL);
+	_addLinkBefore(lst, lst->lastLink, e);
 }
 
 /*
@@ -187,8 +197,12 @@ int isEmptyList(struct linkedList *lst) {
  */
 void _printList(struct linkedList* lst)
 {
-	/* FIXME: you must write this */
-
+	assert(lst != NULL);
+	struct DLink *tempPtr = lst->firstLink->next;
+	for(int i = 0; i < lst->size; i++){
+			printf("%d\n", tempPtr->value);
+			tempPtr=tempPtr->next;
+		}
 }
 
 /*
@@ -200,7 +214,8 @@ void _printList(struct linkedList* lst)
  */
 void addList(struct linkedList *lst, TYPE v)
 {
-	/* FIXME: you must write this */
+	assert(lst != NULL);
+	addFrontList(lst,v);
 
 }
 
@@ -216,9 +231,19 @@ void addList(struct linkedList *lst, TYPE v)
 	post:	no changes to the bag
 */
 int containsList (struct linkedList *lst, TYPE e) {
-	/* FIXME: you must write this */
-	/*temporary return value...you may need to change this */
-	return(1);
+
+
+		assert(lst != NULL && lst->size != 0);
+	 struct DLink *tempPtr = lst->firstLink->next;
+	 for(int i = 0; i < lst->size; i++){
+
+	 	if(tempPtr->value != e){
+		 		tempPtr = tempPtr->next;
+		}else{
+				return 1;
+		}
+	}
+	return 0;
 }
 
 /*	Removes the first occurrence of the specified value from the collection
@@ -232,5 +257,19 @@ int containsList (struct linkedList *lst, TYPE e) {
 	post:	size of the bag is reduced by 1
 */
 void removeList (struct linkedList *lst, TYPE e) {
-	/* FIXME: you must write this */
+
+		assert(lst != NULL && lst->size != 0);
+		struct DLink *tempPtr = lst->firstLink->next;
+		for(int i = 0; i < lst->size; i++){
+
+			if(tempPtr->value != e){
+				tempPtr=tempPtr->next;
+			}
+			else{
+				tempPtr->next->prev = tempPtr->prev;
+				tempPtr->prev->next = tempPtr->next;
+				lst->size--;
+				free(tempPtr);
+			}
+	}
 }
